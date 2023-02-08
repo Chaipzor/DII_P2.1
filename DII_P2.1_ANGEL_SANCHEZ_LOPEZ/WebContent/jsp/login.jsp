@@ -4,9 +4,18 @@
 <html>
 <head>
 <%@include file="./meta.jsp"%>
-<title>Practica 2.1 DII 2 Curso</title>
+<title>LOGIN</title>
 </head>
 <body>
+
+<% 
+String texto;
+// El título del formulario será "Inicio de sesión" a menos que recibamos otro texto de form.
+if(request.getAttribute("texto")!=null)
+	texto = (String) request.getAttribute("texto");
+else
+	texto="";
+ %>
 
 	<%@include file="./header.jsp"%>
 
@@ -20,24 +29,32 @@
 				<div class="contenedor">
 					<div class="separador"></div>
 					<div class="titulo">LOGIN</div>
+					<div class="subtitulo"><%out.println(texto);%></div>
 					<div class="login-item">
-						<form action="<%=request.getContextPath()%>/registro"
+						<form action="<%=request.getContextPath()%>/login"
 							method="post" class="form form-login">
 							<div class="form-field">
 
-								<label class="user" for="login-username"></label> <input
-									name="nombre" id="login-username" type="text"
-									class="form-input" placeholder="Usuario" required>
+								<label for="email">EMAIL</label> <input
+									name="email" id="email" type="email"
+									class="form-input" placeholder="Email" required>
 							</div>
 
 							<div class="form-field">
-								<label class="lock" for="login-password"></label> <input
-									name="pass" id="login-password" type="password"
+								<label for="password">CONTRASEÑA</label> <input
+									name="pass" id="password" type="password"
 									class="form-input" placeholder="Contraseña" required>
 							</div>
 
 							<div class="form-field">
 								<input type="submit" name="boton" value="Acceder">
+							</div>
+						</form>
+						<form action="<%=request.getContextPath()%>/jsp/registro.jsp"
+							method="post" class="form form-login">
+
+							<div class="form-field">
+								<input type="submit" name="boton" value="Darse de alta">
 							</div>
 						</form>
 					</div>

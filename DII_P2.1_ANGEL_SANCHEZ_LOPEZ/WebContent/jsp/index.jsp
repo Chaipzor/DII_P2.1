@@ -7,9 +7,7 @@
 <title>Practica 2.1 DII 2 Curso</title>
 </head>
 <body>
-
-	<%@include file="./header.jsp"%>
-	
+	<%@include file="./header.jsp" %>
 	<div id='main'>
 	
 		<%@include file="./nav.jsp"%>
