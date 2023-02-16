@@ -9,13 +9,13 @@ public class UsuarioService {
 
 	// Devuelve -1 si no existe el email o "i" en caso de que exista.
 	public int comprobarEmail(String email) {
-		int comprobacion = -1;
+		int comprobacion = 0;
 		for (int i = 0; i < UsuarioDAO.getListaUsuarios().size(); i++) {
 			if (email.equalsIgnoreCase(UsuarioDAO.getListaUsuarios().get(i).getEmail())) {
-				comprobacion = i;
+				return comprobacion;
 			}
 		}
-		return comprobacion;
+		return -1;
 	}
 
 	// Devuelve el id del email si coincide la contraseña. Sino devuelve -2.
@@ -50,11 +50,11 @@ public class UsuarioService {
 		ArrayList<Usuario> listaContactos = UsuarioDAO.getListaUsuarios();
 		int pos = 0;
 		do {
-			if(listaContactos.get(pos).getId() == id) {
+			if (listaContactos.get(pos).getId() == id) {
 				return pos;
 			}
 			pos++;
-		}while(pos<listaContactos.size());
+		} while (pos < listaContactos.size());
 		return -1;
 	}
 

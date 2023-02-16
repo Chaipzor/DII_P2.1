@@ -39,23 +39,24 @@ public class AdminController extends HttpServlet {
 		String referencia = "./jsp/index.jsp";
 		int posicion = -1;
 
-		//Si se quiere eliminar un usuario
+		// Si se quiere eliminar un usuario
 		if (request.getParameter("del") != null) {
-			//Busca la posición en el array del usuario "id".
+			// Busca la posición en el array del usuario "id".
 			int id = Integer.parseInt(request.getParameter("del"));
 			posicion = new UsuarioService().buscarUsuario(id);
 
 			if (posicion != -1) {
-				//Si existe el usuario lo elimina.
+				// Si existe el usuario lo elimina.
 				UsuarioDAO.deleteUser(posicion);
 			}
-			//Si se quiere editar un usuario
+			// Si se quiere editar un usuario
 		} else if (request.getParameter("edit") != null) {
 			int id = Integer.parseInt(request.getParameter("edit"));
 			posicion = new UsuarioService().buscarUsuario(id);
 
 			if (posicion != -1) {
-				//Seteamos los atributos para que aparezcan rellenos en la vista del perfil del usuario seleccionado
+				// Seteamos los atributos para que aparezcan rellenos en la vista del perfil del
+				// usuario seleccionado
 				referencia = "./jsp/perfil_editable.jsp";
 				request.setAttribute("nombre", UsuarioDAO.getListaUsuarios().get(posicion).getNombre());
 				request.setAttribute("apellidos", UsuarioDAO.getListaUsuarios().get(posicion).getApellidos());
@@ -68,7 +69,7 @@ public class AdminController extends HttpServlet {
 			}
 
 		}
-		//Actualizamos la lista de contactos de la sesión
+		// Actualizamos la lista de contactos de la sesión
 		listaContactos = UsuarioDAO.getListaUsuariosNoAdmin();
 		request.getSession().setAttribute("listaContactos", listaContactos);
 		request.getRequestDispatcher(referencia).forward(request, response);

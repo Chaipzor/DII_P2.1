@@ -47,14 +47,18 @@ public class EditarPassController extends HttpServlet {
 		String referencia = "/jsp/perfil_edit_pass.jsp";
 		int id = (int) request.getSession().getAttribute("id");
 
+		int posicion = new UsuarioService().buscarUsuario(id);
+		
 		// Recibimos la info. del usuario
 		String oldPass = request.getParameter("oldPass");
 		String newPass = request.getParameter("newPass");
 		String newPass2 = request.getParameter("newPass2");
 		String actualPass = UsuarioDAO.getListaUsuarios().get(id).getPass();
 
-		int posicion = new UsuarioService().buscarUsuario(id);
+
 		
+
+
 		// Comparamos las contraseñas
 		if (!oldPass.equals(actualPass)) {
 			texto = "La contraseña introducida no es la actual.";
@@ -72,9 +76,9 @@ public class EditarPassController extends HttpServlet {
 				texto = "Las contraseñas no coinciden.";
 			}
 		}
-
 		request.setAttribute("texto", texto);
 		request.getRequestDispatcher(referencia).forward(request, response);
+		
 	}
 
 }

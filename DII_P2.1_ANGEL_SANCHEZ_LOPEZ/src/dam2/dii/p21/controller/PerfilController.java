@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dam2.dii.p21.dao.UsuarioDAO;
+import dam2.dii.p21.servicios.UsuarioService;
 
 /**
  * Servlet implementation class PerfilController
@@ -48,11 +49,13 @@ public class PerfilController extends HttpServlet {
 		request.getSession().setAttribute("emailsesion", null);
 		int id = (int) request.getSession().getAttribute("id");
 
+		int posicion = new UsuarioService().buscarUsuario(id);
+
 		// Obtenemos los datos del usuario con el que estamos logeados en el sistema.
-		String nombre = UsuarioDAO.getListaUsuarios().get(id).getNombre();
-		String apellidos = UsuarioDAO.getListaUsuarios().get(id).getApellidos();
-		String email = UsuarioDAO.getListaUsuarios().get(id).getEmail();
-		Integer telefono = UsuarioDAO.getListaUsuarios().get(id).getTelefono();
+		String nombre = UsuarioDAO.getListaUsuarios().get(posicion).getNombre();
+		String apellidos = UsuarioDAO.getListaUsuarios().get(posicion).getApellidos();
+		String email = UsuarioDAO.getListaUsuarios().get(posicion).getEmail();
+		Integer telefono = UsuarioDAO.getListaUsuarios().get(posicion).getTelefono();
 		String tlf = telefono.toString();
 
 		// Mostramos los datos del usuario con el que estamos logeados en el sistema.
