@@ -1,6 +1,8 @@
 package dam2.dii.p21.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +74,8 @@ public class RegistroController extends HttpServlet {
 				UsuarioDAO.setListaUsuarios(new Usuario(nombre, apellidos, email, telefono, pass, false));
 			}
 		}
-
+		ArrayList<Usuario> listaContactos = UsuarioDAO.getListaUsuariosNoAdmin();
+		request.getSession().setAttribute("listaContactos", listaContactos);
 		request.setAttribute("repetir", repetir);
 		request.setAttribute("texto", texto);
 		request.getRequestDispatcher(referencia).forward(request, response);

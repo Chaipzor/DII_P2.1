@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dam2.dii.p21.dao.UsuarioDAO;
+import dam2.dii.p21.servicios.UsuarioService;
 
 /**
  * Servlet implementation class PerfilController
@@ -43,10 +44,12 @@ public class VisualizarDatosController extends HttpServlet {
 		// TODO Auto-generated method stub
 		// Muestra los datos del usuario con el que estamos logeados para su edición.
 		int id = (int) request.getSession().getAttribute("id");
-		String nombre = UsuarioDAO.getListaUsuarios().get(id).getNombre();
-		String apellidos = UsuarioDAO.getListaUsuarios().get(id).getApellidos();
-		String email = UsuarioDAO.getListaUsuarios().get(id).getEmail();
-		Integer telefono = UsuarioDAO.getListaUsuarios().get(id).getTelefono();
+		int posicion = new UsuarioService().buscarUsuario(id);
+
+		String nombre = UsuarioDAO.getListaUsuarios().get(posicion).getNombre();
+		String apellidos = UsuarioDAO.getListaUsuarios().get(posicion).getApellidos();
+		String email = UsuarioDAO.getListaUsuarios().get(posicion).getEmail();
+		Integer telefono = UsuarioDAO.getListaUsuarios().get(posicion).getTelefono();
 		String tlf = telefono.toString();
 		request.setAttribute("nombre", nombre);
 		request.setAttribute("apellidos", apellidos);
