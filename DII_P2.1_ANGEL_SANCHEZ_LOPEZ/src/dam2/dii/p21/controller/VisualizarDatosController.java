@@ -1,8 +1,6 @@
-package dam2.dii.p21;
+package dam2.dii.p21.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,21 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dam2.dii.p21.dao.UsuarioDAO;
-import dam2.dii.p21.model.Usuario;
 
 /**
- * Servlet implementation class index A través de esta clase conseguimos acceder
- * a la web por la url vacía y sin / al final, y redireccionar de forma limpia
- * al index.
+ * Servlet implementation class PerfilController
  */
-@WebServlet("")
-public class Home extends HttpServlet {
+@WebServlet("/modificardatos")
+public class VisualizarDatosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Home() {
+	public VisualizarDatosController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -36,11 +31,7 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		// Carga el listado de usuarios inicial y redirige al index
-		ArrayList<Usuario> listaContactos = UsuarioDAO.getListaUsuariosNoAdmin();
-		request.getSession().setAttribute("listaContactos", listaContactos);
-		request.getRequestDispatcher("./jsp/index.jsp").forward(request, response);
+		doPost(request, response);
 	}
 
 	/**
@@ -50,7 +41,18 @@ public class Home extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		// Muestra los datos del usuario con el que estamos logeados para su edición.
+		int id = (int) request.getSession().getAttribute("id");
+		String nombre = UsuarioDAO.getListaUsuarios().get(id).getNombre();
+		String apellidos = UsuarioDAO.getListaUsuarios().get(id).getApellidos();
+		String email = UsuarioDAO.getListaUsuarios().get(id).getEmail();
+		Integer telefono = UsuarioDAO.getListaUsuarios().get(id).getTelefono();
+		String tlf = telefono.toString();
+		request.setAttribute("nombre", nombre);
+		request.setAttribute("apellidos", apellidos);
+		request.setAttribute("email", email);
+		request.setAttribute("telefono", tlf);
+		request.getRequestDispatcher("./jsp/perfil_editable.jsp").forward(request, response);
 	}
 
 }

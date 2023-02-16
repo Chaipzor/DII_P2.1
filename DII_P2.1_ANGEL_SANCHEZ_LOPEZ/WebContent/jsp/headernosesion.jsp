@@ -9,6 +9,6 @@
 <div>
 	<a href="${pageContext.request.contextPath}/jsp/registro.jsp"><button
 			class="login">
-			<i class="fa fa-user-o"></i> NUEVO USUARIO
+			<i class="fa fa-user-o"></i> REGISTRO
 		</button></a>
 </div>

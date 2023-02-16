@@ -8,14 +8,12 @@
 </head>
 <body>
 
-<% 
-String texto;
-// El título del formulario será "Inicio de sesión" a menos que recibamos otro texto de form.
-if(request.getAttribute("texto")!=null)
-	texto = (String) request.getAttribute("texto");
-else
-	texto="";
- %>
+	<%
+		String texto = "";
+		if (request.getAttribute("texto") != null) {
+			texto = (String) request.getAttribute("texto");
+		}
+	%>
 
 	<%@include file="./header.jsp"%>
 
@@ -29,7 +27,11 @@ else
 				<div class="contenedor">
 					<div class="separador"></div>
 					<div class="titulo">REGISTRO</div>
-					<div class="subtitulo"><%out.println(texto);%></div>
+					<div class="subtitulo">
+						<%
+							out.println(texto);
+						%>
+					</div>
 					<div class="login-item">
 						<form action="<%=request.getContextPath()%>/registro"
 							method="post" class="form form-login">

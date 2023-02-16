@@ -7,41 +7,55 @@ import dam2.dii.p21.model.Usuario;
 
 public class UsuarioService {
 
-	
-	//Devuelve -1 si no existe el email o "i" en caso de que exista.
+	// Devuelve -1 si no existe el email o "i" en caso de que exista.
 	public int comprobarEmail(String email) {
 		int comprobacion = -1;
-		for(int i = 0; i<UsuarioDAO.getListaUsuarios().size();i++) {
-			if(email.equalsIgnoreCase(UsuarioDAO.getListaUsuarios().get(i).getEmail())) {
+		for (int i = 0; i < UsuarioDAO.getListaUsuarios().size(); i++) {
+			if (email.equalsIgnoreCase(UsuarioDAO.getListaUsuarios().get(i).getEmail())) {
 				comprobacion = i;
 			}
 		}
 		return comprobacion;
 	}
-	
-	public int comprobarPass(int comprobacionEmail,String pass) {
-		if(pass.equals(UsuarioDAO.getListaUsuarios().get(comprobacionEmail).getPass())) {
-			return 1;
+
+	// Devuelve el id del email si coincide la contraseña. Sino devuelve -2.
+	public int comprobarPass(int comprobacionEmail, String pass) {
+		if (pass.equals(UsuarioDAO.getListaUsuarios().get(comprobacionEmail).getPass())) {
+			return comprobacionEmail;
 		}
-		return 0;
+		return -2;
 	}
-	
+
+	// Devuelve el id si es correcto el email y la contraseña, -1 si no existe el
+	// email y -2 si la contraseña es incorrecta.
 	public int comprobarDatos(String email, String pass) {
-		int comprobacion;
 		int comprobacionEmail = comprobarEmail(email);
-		if(comprobacionEmail != -1) {
-			int comprobacionPass = comprobarPass(comprobacionEmail,pass);
+		if (comprobacionEmail != -1) {
+			int comprobacionPass = comprobarPass(comprobacionEmail, pass);
 			return comprobacionPass;
 		} else {
 			return -1;
 		}
 	}
-	
+
+	// Comprueba si las 2 contraseñas son iguales.
 	public boolean comprobacionDoblePass(String pass, String pass2) {
-		if(pass.equals(pass2)) {
+		if (pass.equals(pass2)) {
 			return true;
 		}
 		return false;
 	}
-	
+
+	public int buscarUsuario(int id) {
+		ArrayList<Usuario> listaContactos = UsuarioDAO.getListaUsuarios();
+		int pos = 0;
+		do {
+			if(listaContactos.get(pos).getId() == id) {
+				return pos;
+			}
+			pos++;
+		}while(pos<listaContactos.size());
+		return -1;
+	}
+
 }

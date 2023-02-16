@@ -46,6 +46,8 @@ public class RegistroController extends HttpServlet {
 		String texto = "";
 		String referencia = "/jsp/registro.jsp";
 		boolean repetir = false;
+
+		// Obtenemos los datos de registro del formulario
 		String nombre = request.getParameter("nombre");
 		String apellidos = request.getParameter("apellidos");
 		String email = request.getParameter("email");
@@ -53,16 +55,21 @@ public class RegistroController extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String pass2 = request.getParameter("pass2");
 
+		// Se comprueba el email introducido
 		int comprobacion = new UsuarioService().comprobarEmail(email);
+		// Si ya estaba registrado
 		if (comprobacion != -1) {
 			texto = "Email ya registrado.";
 			referencia = "/jsp/registro.jsp";
-		} else {
+		} // Si no existía
+		else {
+			// Se comprueba la doble contraseña
 			boolean comprobacionDoblePass = new UsuarioService().comprobacionDoblePass(pass, pass2);
 			if (!comprobacionDoblePass) {
 				texto = "Las contraseñas no coinciden.";
 			} else {
-				UsuarioDAO.setListaUsuarios(new Usuario(nombre,apellidos,email,telefono,pass));
+				texto = "Usuario registrado.";
+				UsuarioDAO.setListaUsuarios(new Usuario(nombre, apellidos, email, telefono, pass, false));
 			}
 		}
 

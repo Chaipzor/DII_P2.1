@@ -592,3 +592,79 @@ h2 {
 	height: 200px;
 	background-color: white;
 }
+
+.menu-perfil {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.contenedor-perfil {
+	background: white;
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+}
+
+.contenedorTabla {
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 100%;
+	background: #DDEEDF;
+	/* 	position: relative; */
+	
+}
+
+table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+	padding: 15px;
+	text-align: center;
+}
+
+td{
+	color: #388E3C;
+}
+
+th {
+	text-align: center;
+	color: #388E3C;
+	background-color: #8BC34A;
+}
+
+/*#F2F9F1 ; #388E3C ; #8BC34A ; #DDEEDF*/
+
+thead {
+	background-color: #0C2D48;
+}
+
+table tr td:hover {
+	background-color: #F2F9F1;
+}
+
+#editar:before {
+	content: '\f044';
+	font: 34px fontawesome;
+	color: #388E3C;
+	align: center;
+}
+
+#eliminar:before {
+	content: '\f1f8';
+	font: 34px fontawesome;
+	color: #388E3C;
+	align: center;
+}
+
+a{
+	text-decoration: none;
+}

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dam2.dii.p21.dao.UsuarioDAO;
 import dam2.dii.p21.servicios.UsuarioService;
 
 /**
@@ -15,47 +16,59 @@ import dam2.dii.p21.servicios.UsuarioService;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	public LoginController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String texto;
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String texto = "";
 		String referencia = "/jsp/index.jsp";
 		boolean repetir = false;
+
+		// Obtenemos los datos del login
 		String email = request.getParameter("email");
 		String pass = request.getParameter("pass");
-		int comprobacion = new UsuarioService().comprobarDatos(email,pass);
-		//Usuario no existe.
-		if(comprobacion == -1) {
+		// Comprobamos los datos
+		int comprobacion = new UsuarioService().comprobarDatos(email, pass);
+		// Usuario no existe.
+		if (comprobacion == -1) {
 			texto = "El email no está dado de alta.";
 			referencia = "/jsp/registro.jsp";
-		} else if(comprobacion == 0) {
+		} // Contraseña incorrecta.
+		else if (comprobacion == -2) {
 			texto = "Contraseña incorrecta. Vuelva a intentarlo.";
 			repetir = true;
 			referencia = "/jsp/login.jsp";
-		} else {
-			texto = "Hola " + email;
-			request.getSession().setAttribute("email",email);
+		} // Login correcto
+		else {
+			String nombre = UsuarioDAO.getListaUsuarios().get(comprobacion).getNombre();
+			request.getSession().setAttribute("nombresesion", nombre);
+			request.getSession().setAttribute("id", comprobacion);
+			String admin = String.valueOf(UsuarioDAO.getListaUsuarios().get(comprobacion).isRol_admin());
+			request.getSession().setAttribute("admin", admin);
 		}
-		
+
 		request.setAttribute("repetir", repetir);
 		request.setAttribute("texto", texto);
 		request.getRequestDispatcher(referencia).forward(request, response);

@@ -9,7 +9,7 @@
 		</div>
 		<div class="menu">
 			<div>
-				<a href="index.html">OFERTAS</a>
+				<a href="#">OFERTAS</a>
 			</div>
 			<div>
 				<a href="#">CONÓCENOS</a>
@@ -24,7 +24,7 @@
 		</div>
 		<div class="menu-botones">
 			<%
-				String sesion = (String) request.getSession().getAttribute("email");
+				String sesion = (String) request.getSession().getAttribute("nombresesion");
 				if (sesion != null) {
 			%>
 			<%@include file="./headersesion.jsp"%>
