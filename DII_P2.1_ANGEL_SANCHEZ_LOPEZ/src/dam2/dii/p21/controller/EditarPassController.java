@@ -53,17 +53,19 @@ public class EditarPassController extends HttpServlet {
 		String newPass2 = request.getParameter("newPass2");
 		String actualPass = UsuarioDAO.getListaUsuarios().get(id).getPass();
 
+		int posicion = new UsuarioService().buscarUsuario(id);
+		
 		// Comparamos las contraseñas
 		if (!oldPass.equals(actualPass)) {
 			texto = "La contraseña introducida no es la actual.";
 		} else {
 			if (newPass.equals(newPass2)) {
-				UsuarioDAO.getListaUsuarios().get(id).setPass(newPass);
+				UsuarioDAO.getListaUsuarios().get(posicion).setPass(newPass);
 				texto = "Contraseña modificada con éxito.";
-				request.setAttribute("nombre", UsuarioDAO.getListaUsuarios().get(id).getNombre());
-				request.setAttribute("apellidos", UsuarioDAO.getListaUsuarios().get(id).getApellidos());
-				request.setAttribute("email", UsuarioDAO.getListaUsuarios().get(id).getEmail());
-				String tlf = String.valueOf(UsuarioDAO.getListaUsuarios().get(id).getTelefono());
+				request.setAttribute("nombre", UsuarioDAO.getListaUsuarios().get(posicion).getNombre());
+				request.setAttribute("apellidos", UsuarioDAO.getListaUsuarios().get(posicion).getApellidos());
+				request.setAttribute("email", UsuarioDAO.getListaUsuarios().get(posicion).getEmail());
+				String tlf = String.valueOf(UsuarioDAO.getListaUsuarios().get(posicion).getTelefono());
 				request.setAttribute("telefono", tlf);
 				referencia = "/jsp/perfil.jsp";
 			} else {
