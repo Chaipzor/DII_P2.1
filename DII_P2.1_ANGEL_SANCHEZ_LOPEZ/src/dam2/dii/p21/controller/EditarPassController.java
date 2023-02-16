@@ -74,6 +74,7 @@ public class EditarPassController extends HttpServlet {
 		}
 		request.setAttribute("texto", texto);
 		request.getRequestDispatcher(referencia).forward(request, response);
+		
 	}
 
 }
