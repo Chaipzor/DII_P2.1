@@ -55,8 +55,6 @@ public class EditarPassController extends HttpServlet {
 		String newPass2 = request.getParameter("newPass2");
 		String actualPass = UsuarioDAO.getListaUsuarios().get(id).getPass();
 
-		
-
 		// Comparamos las contraseñas
 		if (!oldPass.equals(actualPass)) {
 			texto = "La contraseña introducida no es la actual.";
